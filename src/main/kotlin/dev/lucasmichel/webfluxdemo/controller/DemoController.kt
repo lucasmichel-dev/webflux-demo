@@ -14,6 +14,7 @@ class DemoController(
 
     @GetMapping
     fun get(): Mono<DemoResponse> {
+
         return service.read()
                 .onErrorReturn(DemoResponse(msg = "ERRO"))
                 .map { it }
@@ -26,4 +27,10 @@ class DemoController(
                 .onErrorReturn(DemoResponse(msg = "ERRO"))
                 .map { it }
     }
+
+    @GetMapping("/feign/home")
+    fun getFeignHome(): Mono<String> = service.feignHome()
+
+    @GetMapping("/feign/about")
+    fun feignHome(): Mono<String> = service.feignAbout()
 }
